@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HireMatch AI — Resume Screening</title>
+  <meta name="description" content="AI-powered resume screening and candidate-job matching system for recruiters and HR teams." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <span class="brand-name">HireMatch AI</span>
+        <span class="brand-tag">Resume Screening</span>
+      </div>
+      <nav class="header-nav">
+        <div class="job-selector-wrap">
+          <label for="active-job-select">Active Job</label>
+          <select id="active-job-select">
+            <option value="">Select a job...</option>
+          </select>
+        </div>
+        <button class="btn btn-outline" id="btn-trigger-new-job">+ New Job</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+
+    <!-- Stats bar -->
+    <div class="stats-bar">
+      <div class="stat-item">
+        <span class="stat-value" id="metric-jobs">0</span>
+        <span class="stat-label">Active Jobs</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-value" id="metric-candidates">0</span>
+        <span class="stat-label">Candidates</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-value" id="metric-avg-match">—</span>
+        <span class="stat-label">Avg Match</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-value" id="metric-top-cands">0</span>
+        <span class="stat-label">Strong Matches</span>
+      </div>
+    </div>
+
+    <div class="layout">
+
+      <!-- LEFT: Job setup + candidates -->
+      <aside class="sidebar">
+
+        <!-- Job Form -->
+        <section class="card" id="job-panel">
+          <div class="card-header">
+            <h2>Job Setup</h2>
+          </div>
+          <form id="job-form" class="form-stack">
+            <div class="field">
+              <label for="job-title">Job Title</label>
+              <input id="job-title" type="text" placeholder="e.g. Senior Python Engineer" required />
+            </div>
+            <div class="field">
+              <label for="role-family">Role Category</label>
+              <select id="role-family">
+                <option value="backend">Backend Engineering</option>
+                <option value="frontend">Frontend Engineering</option>
+                <option value="data_ai">Data Science / AI</option>
+                <option value="devops">DevOps & Platform</option>
+                <option value="fullstack">Fullstack</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="job-description">Job Description</label>
+              <textarea id="job-description" rows="6" placeholder="Paste the full job description here..." required></textarea>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="btn btn-ghost" id="btn-parse-jd">Analyze JD</button>
+              <button type="submit" class="btn btn-primary" id="btn-save-job">Save Job</button>
+            </div>
+          </form>
+
+          <!-- JD Analysis Preview -->
+          <div id="jd-preview-container" class="jd-analysis hidden">
+            <div class="analysis-header">
+              <h4>Extracted Requirements</h4>
+              <div class="analysis-meta">
+                <span>Experience: <strong id="preview-jd-exp">0</strong> yrs</span>
+                <span>Role: <strong id="preview-jd-role">—</strong></span>
+              </div>
+            </div>
+            <div class="skills-section">
+              <p class="skills-label">Required</p>
+              <div class="tag-list" id="preview-jd-required"></div>
+            </div>
+            <div class="skills-section">
+              <p class="skills-label">Preferred</p>
+              <div class="tag-list" id="preview-jd-preferred"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Candidate Upload -->
+        <section class="card hidden" id="sourcing-panel">
+          <div class="card-header">
+            <h2>Upload Resumes</h2>
+            <span class="badge" id="candidate-count-badge">0</span>
+          </div>
+          <p class="card-hint">Upload PDF, DOCX, or TXT resume files for the active job.</p>
+
+          <div class="upload-zone" id="drop-zone">
+            <div class="upload-zone-inner">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+              <span>Drop files here or click to browse</span>
+              <span class="upload-sub">PDF · DOCX · TXT</span>
+            </div>
+            <input type="file" id="file-input" multiple accept=".pdf,.docx,.txt" class="hidden-input" />
+          </div>
+
+          <div id="upload-status" class="status-msg hidden"></div>
+
+          <div id="preview-list" class="candidate-list-preview empty-note">
+            <p>No resumes loaded yet.</p>
+          </div>
+
+          <button class="btn btn-primary btn-full hidden" id="btn-run-screening">
+            Run Screening
+          </button>
+        </section>
+
+      </aside>
+
+      <!-- RIGHT: Results -->
+      <div class="results-area">
+
+        <!-- Leaderboard -->
+        <section class="card" id="leaderboard-panel">
+          <div class="card-header">
+            <h2>Candidate Rankings</h2>
+            <p class="card-subtitle" id="leaderboard-subtitle">Save a job and upload resumes to generate rankings.</p>
+          </div>
+          <div id="leaderboard-list" class="empty-note">
+            <p>No results yet. Select a job or create one to begin.</p>
+          </div>
+        </section>
+
+        <!-- Candidate Detail -->
+        <section class="card hidden" id="detail-panel">
+          <div class="detail-top">
+            <div>
+              <h2 id="detail-name">Candidate Name</h2>
+              <p class="detail-meta" id="detail-meta">Role · Experience</p>
+            </div>
+            <button class="btn btn-outline" id="btn-download-report">Download Report</button>
+          </div>
+
+          <div class="detail-body">
+            <div class="score-summary">
+              <div class="big-score" id="detail-overall-score">—</div>
+              <div class="big-score-label">Overall Match</div>
+            </div>
+
+            <div class="score-bars">
+              <div class="score-row">
+                <span class="score-row-label">Skill Match <em>35%</em></span>
+                <div class="bar-track"><div class="bar-fill" id="fill-skill"></div></div>
+                <span class="score-row-val" id="val-skill">—</span>
+              </div>
+              <div class="score-row">
+                <span class="score-row-label">Experience <em>25%</em></span>
+                <div class="bar-track"><div class="bar-fill" id="fill-exp"></div></div>
+                <span class="score-row-val" id="val-exp">—</span>
+              </div>
+              <div class="score-row">
+                <span class="score-row-label">Responsibility <em>20%</em></span>
+                <div class="bar-track"><div class="bar-fill" id="fill-resp"></div></div>
+                <span class="score-row-val" id="val-resp">—</span>
+              </div>
+              <div class="score-row">
+                <span class="score-row-label">Education <em>10%</em></span>
+                <div class="bar-track"><div class="bar-fill" id="fill-edu"></div></div>
+                <span class="score-row-val" id="val-edu">—</span>
+              </div>
+              <div class="score-row">
+                <span class="score-row-label">Semantic Similarity <em>10%</em></span>
+                <div class="bar-track"><div class="bar-fill" id="fill-sem"></div></div>
+                <span class="score-row-val" id="val-sem">—</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="detail-summary">
+            <h4>Summary</h4>
+            <p id="detail-summary">—</p>
+          </div>
+
+          <div class="findings-grid">
+            <div class="findings-col">
+              <h4 class="findings-title strengths-title">Strengths</h4>
+              <ul id="detail-strengths" class="findings-list"></ul>
+            </div>
+            <div class="findings-col">
+              <h4 class="findings-title concerns-title">Gaps / Concerns</h4>
+              <ul id="detail-concerns" class="findings-list"></ul>
+            </div>
+          </div>
+
+          <div class="skills-cols">
+            <div>
+              <h4 class="skills-col-title">Matched Skills</h4>
+              <div class="tag-list" id="detail-matched-skills"></div>
+            </div>
+            <div>
+              <h4 class="skills-col-title">Missing Skills</h4>
+              <div class="tag-list" id="detail-missing-skills"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Comparison -->
+        <section class="card hidden" id="comparison-panel">
+          <div class="card-header">
+            <h2>Compare Candidates</h2>
+          </div>
+          <div class="compare-selects">
+            <div class="field">
+              <label for="compare-select-a">Candidate A</label>
+              <select id="compare-select-a"></select>
+            </div>
+            <div class="field">
+              <label for="compare-select-b">Candidate B</label>
+              <select id="compare-select-b"></select>
+            </div>
+          </div>
+          <div id="comparison-output" class="compare-grid"></div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p class="disclaimer">
+        <strong>Responsible AI Notice:</strong> HireMatch AI is a decision-support tool. It evaluates job-relevant 
+        technical skills, experience, education, and descriptive similarity. It does not evaluate demographic 
+        information. All final hiring decisions require human review.
+      </p>
+      <p class="footer-copy">HireMatch AI &mdash; Portfolio Project</p>
+    </div>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+Name: Riya Verma
+Email: riya.verma@example.com
+Phone: +91 98765 43211
+Years of Experience: 3
+
+Skills:
+- Python, Django, Flask, FastAPI
+- GCP, Docker, Kubernetes, CI/CD
+- SQL, PostgreSQL, MongoDB
+- REST APIs, Git
+
+Experience:
+- Software Engineer at Tech Solutions (2023-Present)
+- Junior Developer at StartUp Hub (2021-2023)

@@ -1,0 +1,14 @@
+Name: Aman Sharma
+Email: aman.sharma@example.com
+Phone: +91 98765 43210
+Years of Experience: 6
+
+Skills:
+- Python, FastAPI, Django, Flask
+- PostgreSQL, MySQL, Redis, SQL
+- AWS, Docker, Kubernetes, Terraform, CI/CD
+- API Design, Microservices, Git
+
+Experience:
+- Senior Backend Developer at ABC Corp (2021-Present)
+- Backend Engineer at XYZ Inc (2018-2021)

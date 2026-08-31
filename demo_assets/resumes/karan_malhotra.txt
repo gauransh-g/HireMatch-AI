@@ -1,0 +1,14 @@
+Name: Karan Malhotra
+Email: karan.malhotra@example.com
+Phone: +91 98765 43214
+Years of Experience: 5
+
+Skills:
+- AWS, Azure, GCP
+- Kubernetes, Docker, Terraform
+- Ansible, Jenkins, CI/CD, Git
+- Bash, Python scripting
+
+Experience:
+- DevOps Engineer at CloudOps (2021-Present)
+- Systems Administrator at Infra Services (2019-2021)

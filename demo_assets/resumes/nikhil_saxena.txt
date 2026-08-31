@@ -1,0 +1,14 @@
+Name: Nikhil Saxena
+Email: nikhil.saxena@example.com
+Phone: +91 98765 43212
+Years of Experience: 7
+
+Skills:
+- Java, Spring Boot, Spring
+- MySQL, PostgreSQL, Oracle
+- Docker, Jenkins, CI/CD, AWS
+- Agile, Team Leadership
+
+Experience:
+- Backend Tech Lead at Enterprise Corp (2022-Present)
+- Java Developer at Systems Ltd (2017-2022)

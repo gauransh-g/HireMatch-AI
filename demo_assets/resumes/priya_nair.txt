@@ -1,0 +1,14 @@
+Name: Priya Nair
+Email: priya.nair@example.com
+Phone: +91 98765 43213
+Years of Experience: 4
+
+Skills:
+- Python, R, Machine Learning
+- PyTorch, TensorFlow, Scikit-Learn
+- Pandas, Numpy, NLP, LLM, RAG
+- SQL, PostgreSQL
+
+Experience:
+- Data Scientist at AI Research Labs (2022-Present)
+- ML Engineer at DataCorp (2020-2022)

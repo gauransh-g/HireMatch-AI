@@ -1,0 +1,12 @@
+Name: Megha Kapoor
+Email: megha.kapoor@example.com
+Phone: +91 98765 43215
+Years of Experience: 1
+
+Skills:
+- Javascript, TypeScript, HTML, CSS
+- React, Vue, Webpack, NPM
+- Figma, UI/UX Design
+
+Experience:
+- Frontend UI Developer at WebDesign Agency (2025-Present)
