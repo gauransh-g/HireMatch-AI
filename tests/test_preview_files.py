@@ -5,7 +5,7 @@ from app.main import app
 def test_preview_files_extracts_profile_data():
     client = TestClient(app)
     payload = (
-        b"Name: Prashant Singh\nYears of Experience: 3\nPython FastAPI AWS Docker\n"
+        b"Name: Gauransh Gupta\nYears of Experience: 3\nPython FastAPI AWS Docker\n"
         b"Education: B.S. Computer Science from Delhi University\n"
         b"Projects: Developed python web apps"
     )
@@ -19,5 +19,5 @@ def test_preview_files_extracts_profile_data():
     body = response.json()
     assert "previews" in body
     assert body["previews"][0]["status"] == "ok"
-    assert body["previews"][0]["candidate_name"] == "Prashant Singh"
+    assert body["previews"][0]["candidate_name"] == "Gauransh Gupta"
     assert body["previews"][0]["years_experience"] == 3.0
