@@ -16,8 +16,7 @@
 ## Regenerate PDFs (optional)
 
 ```powershell
-Set-Location "c:\Users\pytorch\Desktop\AI Resume Screening & Analysis System"
-.\.venv\Scripts\python.exe .\scripts\generate_demo_resume_pdfs.py
+python .\scripts\generate_demo_resume_pdfs.py
 ```
 
 - Generator script: `scripts/generate_demo_resume_pdfs.py`

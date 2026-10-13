@@ -26,6 +26,8 @@
 
 **HireMatch AI** is a local decision-support tool built for hiring managers, recruiters, and HR teams to automate and explain resume screening. By combining structured parameter extraction, custom TF-IDF semantic vector similarity, and a co-occurrence relation graph for technical skills, it addresses the limitations of standard keyword search and opaque LLM black-box ranking.
 
+![HireMatch AI Dashboard Preview](docs/screenshots/hirematch_dashboard.png)
+
 ### Key Capabilities
 - **Structured Sourcing**: Automatically parses `PDF`, `DOCX`, and `TXT` resumes into structured candidate profiles (extracting names, experience years, skills, education history, and projects).
 - **JD Requirement Extraction**: Infers target role family, experience requirements, and separates requested skills into required and preferred sections.
@@ -100,7 +102,11 @@ $$\text{Overall Score} = (0.35 \times \text{Skill Score}) + (0.25 \times \text{E
 
 ### Installation & Run
 
-1. Clone or navigate to the repository directory.
+1. Clone or navigate to the repository directory:
+   ```bash
+   git clone https://github.com/gauransh-g/HireMatch-AI.git
+   cd HireMatch-AI
+   ```
 2. Run the PowerShell setup script (or run manually):
    ```powershell
    .\scripts\setup.ps1

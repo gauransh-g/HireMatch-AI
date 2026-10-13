@@ -30,13 +30,12 @@
 - Persistent storage (SQLite/PostgreSQL)
 - Audit logs for screening decisions
 
-## Phase 5: Upwork Portfolio Packaging
+## Phase 5: Production Packaging & Release
 
-- Case study with problem/approach/outcome
-- 60 to 90 second demo video
-- Screenshots and feature highlights
-- Service tiers (basic, standard, premium)
-- Proposal bullets tailored to HR and startup clients
+- Comprehensive benchmarking and test coverage
+- Structured documentation and architecture walkthrough
+- Standalone runnable demo workflows and report generation
+- Clean open-source release packaging
 
 ## Success Metrics
 
